@@ -12,10 +12,10 @@ Tutorial for Multi-UAV (Quadcopters) simulation in Gazebo and Ardupilot.
 
 ## Installation
 ### Ubuntu
-I used Ubuntu 20.04 inside a Virtual Machine (VM).
+Ubuntu 20.04 inside a Virtual Machine (VM) used in this tutorial.
 
 ### ROS
-The ROS noetic is used in this tutorial. You can use step below to installed it:
+The ROS noetic is used in this tutorial. You can use steps below to install it:
 ```
 sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
 sudo apt install curl
@@ -31,7 +31,7 @@ rosdep update
 ```
 
 ### Gazebo
-The Gazebo version 11 is used in this tutorial. ROS noetic has gazebo11 but if there is problem with it, you can use step below to installed it:
+The Gazebo version 11 is used in this tutorial. ROS noetic has gazebo11 but if there is problem with it, you can use steps below to install it:
 ```
 sudo sh -c 'echo "deb http://packages.osrfoundation.org/gazebo/ubuntu-stable `lsb_release -cs` main" > /etc/apt/sources.list.d/gazebo-stable.list'
 wget http://packages.osrfoundation.org/gazebo.key -O - | sudo apt-key add –
@@ -44,7 +44,7 @@ export SVGA_VGPU10=0
 ```
 
 ### Ardupilot
-The latest version (4.3.6 at the time of writing) used in this tutorial. You can use step below to installed it:
+The latest version (4.3.6 at the time of writing) used in this tutorial. You can use steps below to install it:
 ```
 git clone https://github.com/ArduPilot/ardupilot.git
 cd ardupilot
@@ -75,7 +75,7 @@ export GAZEBO_PLUGIN_PATH=~/ardupilot_gazebo/build:${GAZEBO_PLUGIN_PATH}
 ```
 
 ### Docker
-The latest version (23.0.6 at the time of writing) used in this tutorial. You can use step below to installed it:
+The latest version (23.0.6 at the time of writing) used in this tutorial. You can use steps below to install it:
 ```
 sudo apt-get update
 sudo apt-get install ca-certificates curl gnupg
@@ -100,7 +100,7 @@ cd ~/ardupilot/Tools/autotest
 ```
 gazebo --verbose ~/ardupilot_gazebo/worlds/iris_ardupilot.world
 ```
-- After seeing "APM: EKF2 IMU0 is using GPS" message in console, you can use the command below in first terminal for takeoff test:
+- After seeing "APM: EKF2 IMU0 is using GPS" message in console, you can use the command below in the first terminal for takeoff test:
 ```
 mode guided
 arm throttle
@@ -167,7 +167,7 @@ cp iris_ardupilot.world iris_multiuav.world
       </include>
     </model>
 ```
-- Open a terminal for each UAV and run the command below in each of them (4 UAV example):
+- Open a terminal for each UAV and run the commands below in each of them (4 UAV example):
 ```
 # First terminal:
 cd ~/ardupilot1/Tools/autotest
@@ -211,7 +211,7 @@ docker commit [container_name] sitl-swarm
 ```
 docker run --rm --network="host" -p 5760-5810:5760-5810 --env NUMCOPTERS=4 sitl-swarm
 ```
-- Open a terminal for each UAV and run the command below in each of them (4 UAV example):
+- Open a terminal for each UAV and run the commands below in each of them (4 UAV example):
 ```
 # First terminal:
 mavproxy.py --master=tcp:localhost:5760
