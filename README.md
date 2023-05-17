@@ -107,6 +107,8 @@ arm throttle
 takeoff 5
 ```
 
+![alt text](images/Single_UAV.jpg "Single UAV")
+
 ## Run multiple UAVs
 - For any number of UAVs that you want to simulate, make a copy of "iris_with_standoffs_demo" from ardupliot_gazebo/models folder (iris_with_standoffs_demo_1, iris_with_standoffs_demo_2, iris_with_standoffs_demo_3, ...).
 - Open "model.sdf" file inside of each iris_with_standoffs_demo folder and change <fdm_port_in> and <fdm_port_out> under plugin name="arducopter_plugin" tag. For example for the first UAV (iris_with_standoffs_demo_1) use below:
@@ -190,6 +192,8 @@ cd ~/ardupilot1/Tools/autotest
 gazebo --verbose ~/ardupilot_gazebo/worlds/iris_multiuav.world
 ```
 - Wait for each UAV to get "APM: EKF2 IMU0 is using GPS" message and then you can control UAVs.
+
+![alt text](images/Multi_UAV.jpg "Multi UAV")
 
 ## Run multiple UAVs using Docker
 - Note that you still need to install mavproxy and ardupilot_gazebo plugin and make a copy of iris_with_standoffs_demo for each UAV (if you did previous step you do not have to do it again).
