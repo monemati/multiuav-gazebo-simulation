@@ -297,7 +297,7 @@ takeoff 50
 
 ![alt text](images/Python_Script_Camera.jpg "Python Script Camera")
 
-## Acknowledgement
+## References
 - https://ubuntu.com/
 - https://www.ros.org/
 - https://gazebosim.org/
