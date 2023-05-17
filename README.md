@@ -286,9 +286,13 @@ arm throttle
 takeoff 50
 ```
 - You can use Topic Visualization from Window menu inside Gazebo (or press Ctrl+T inside Gazebo) and select /gazebo/default/iris/iris_demo/gimbal_small_2d/tilt_link/camera... and view the image captured from UAV's camera.
-![alt text](Gazebo_Topic_Visualization.jpg "Gazebo Topic Visualization")
+
+![alt text](images/Gazebo_Topic_Visualization.jpg "Gazebo Topic Visualization")
+
 - You can also use uav_camera.py script to view the image captured from UAV's camera.
-![alt text](Python_Script_Camera.jpg "Python Script Camera")
+
+![alt text](images/Python_Script_Camera.jpg "Python Script Camera")
+
 ## Acknowledgement
 - https://ubuntu.com/
 - https://www.ros.org/
