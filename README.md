@@ -100,7 +100,7 @@ cd ~/ardupilot/Tools/autotest
 ```
 gazebo --verbose ~/ardupilot_gazebo/worlds/iris_ardupilot.world
 ```
-- After seeing "APM: EKF2 IMU0 is using GPS" message in console, you can use the command below in the first terminal for takeoff test:
+- After seeing "APM: EKF2 IMU0 is using GPS" message in console, you can use the commands below in the first terminal for takeoff test:
 ```
 mode guided
 arm throttle
@@ -231,6 +231,64 @@ gazebo --verbose ~/ardupilot_gazebo/worlds/iris_multiuav.world
 ```
 - Wait for each UAV to get "APM: EKF2 IMU0 is using GPS" message and then you can control UAVs.
 
+## Publish UAV's camera feed on ROS topic
+- Install dependencies.
+```
+sudo apt-get install ros-noetic-gazebo-ros-pkgs ros-noetic-gazebo-ros-control
+```
+- Go inside ardupilot_gazebo/models_gazebo folder and make a copy of gimbal_small_2d folder and rename it to gimbal_1 (you can do this for each uav, e.g. gimbal_2, gimbal_3,...).
+- Go to gimbal_1 and open model.sdf file and under <sensor> tag put the lines below (for gimbal_2 change cameraName to uav2 and so on):
+```
+         <plugin name="camera_controller" filename="libgazebo_ros_camera.so">
+           <cameraName>uav1/camera1</cameraName>
+           <imageTopicName>image_raw</imageTopicName>
+           <cameraInfoTopicName>camera_info</cameraInfoTopicName>
+           <frameName>camera_link_optical</frameName>
+           <hackBaseline>0.0</hackBaseline>
+           <distortionK1>0.0</distortionK1>
+           <distortionK2>0.0</distortionK2>
+           <distortionK3>0.0</distortionK3>
+           <distortionT1>0.0</distortionT1>
+           <distortionT2>0.0</distortionT2>
+           <CxPrime>0</CxPrime>
+           <Cx>0.0</Cx>
+           <Cy>0.0</Cy>
+           <focalLength>0.0</focalLength>
+         </plugin>
+```
+- Go to ardupilot_gazebo/models/iris_with_standoffs_demo_1 folder and inside model.sdf file change this:
+```
+    <include>
+      <uri>model://gimbal_small_2d</uri>
+      <pose>0 -0.01 0.070 1.57 0 1.57</pose>
+    </include>
+```
+- To this (do this for each UAV):
+```
+    <include>
+      <uri>model://gimbal_1</uri>
+      <pose>0 -0.01 0.070 1.57 0 1.57</pose>
+    </include>
+```
+- Go to /opt/ros/noetic/share/gazebo_ros/launch/ folder and copy multi.launch file from repo to there (change "world_name" argument in this file according to your world file).
+- Open a terminal and use the command below to launch your world (this will launch gazebo):
+```
+roslaunch gazebo_ros multi.launch
+```
+- Open a new terminal and run a UAV:
+```
+cd ~/ardupilot/Tools/autotest && ./sim_vehicle.py -v ArduCopter -f gazebo-iris -I0
+```
+- After seeing "APM: EKF2 IMU0 is using GPS" message in console, you can use the commands below to takeoff:
+```
+mode guided
+arm throttle
+takeoff 50
+```
+- You can use Topic Visualization from Window menu inside Gazebo (or press Ctrl+T inside Gazebo) and select /gazebo/default/iris/iris_demo/gimbal_small_2d/tilt_link/camera... and view the image captured from UAV's camera.
+![alt text](Gazebo_Topic_Visualization.jpg "Gazebo Topic Visualization")
+- You can also use uav_camera.py script to view the image captured from UAV's camera.
+![alt text](Python_Script_Camera.jpg "Python Script Camera")
 ## Acknowledgement
 - https://ubuntu.com/
 - https://www.ros.org/
@@ -240,3 +298,4 @@ gazebo --verbose ~/ardupilot_gazebo/worlds/iris_multiuav.world
 - https://github.com/khancyr/ardupilot_gazebo
 - https://www.docker.com/
 - https://github.com/ArduPilot/MAVProxy
+- https://github.com/dhanuzch/pkg_cv_ros_tutorial_by_dhanuzch
